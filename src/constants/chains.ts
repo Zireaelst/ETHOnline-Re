@@ -1,4 +1,6 @@
-// Supported Destination Chains for Nexus Pay
+import { PYUSDTransferService } from "@/lib/pyusd-transfer";
+
+// Supported Destination Chains for PYUSD transfers
 export const SUPPORTED_DESTINATION_CHAINS = [
   { 
     id: 11155111, 
@@ -6,13 +8,8 @@ export const SUPPORTED_DESTINATION_CHAINS = [
     logo: '/ethereum-logo.png' // Add logo if needed
   },
   { 
-    id: 80002, 
-    name: 'Polygon Amoy',
-    logo: '/polygon-logo.png'
-  },
-  { 
     id: 421614, 
     name: 'Arbitrum Sepolia',
     logo: '/arbitrum-logo.png'
   },
-];
+].filter(chain => PYUSDTransferService.isChainSupported(chain.id));

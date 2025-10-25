@@ -6,36 +6,46 @@ import NexusInitButton from "@/components/nexus-init";
 import PYUSDBalanceComponent from "@/components/PYUSDBalance";
 import TransferForm from "@/components/TransferForm";
 import { WalletStatus } from "@/components/WalletStatus";
-import { pyusdSDK } from "@/lib/pyusd-sdk";
+import { PYUSDTransferService } from "@/lib/pyusd-transfer";
 import { useNexus } from "@/providers/NexusProvider";
+import { useConfig, useAccount, useChainId } from "wagmi";
+import { switchChain } from "wagmi/actions";
+import type { Address } from "viem";
 
 export default function Home() {
   const { nexusSDK } = useNexus();
+  const config = useConfig();
+  const { isConnected } = useAccount();
+  const currentChainId = useChainId();
 
   const handleTransfer = async (data: { recipient: string; amount: string; destinationChain: number }) => {
-    if (!nexusSDK) {
-      throw new Error("Nexus SDK not initialized");
+    if (!isConnected) {
+      throw new Error("Wallet not connected");
     }
 
     try {
       // Check if PYUSD is supported on the destination chain
-      if (!pyusdSDK.isChainSupported(data.destinationChain)) {
+      if (!PYUSDTransferService.isChainSupported(data.destinationChain)) {
         throw new Error(`PYUSD not supported on chain ${data.destinationChain}`);
       }
 
-      // For now, use Nexus SDK with USDC as PYUSD is not yet supported
-      // In production, this would be replaced with direct PYUSD transfer
-      const bridgeResult = await nexusSDK.bridge({
-        token: "USDC", // Using USDC as PYUSD alternative for demo
+      // Switch to the destination chain if needed
+      if (currentChainId !== data.destinationChain) {
+        await switchChain(config, { chainId: data.destinationChain });
+      }
+
+      // Execute PYUSD transfer
+      const result = await PYUSDTransferService.transferPYUSD(config, {
+        recipient: data.recipient as Address,
         amount: data.amount,
-        chainId: data.destinationChain as 11155111 | 80002 | 421614, // Cast to supported chain ID
+        chainId: data.destinationChain,
       });
 
-      if (bridgeResult?.success) {
-        console.log("Transfer successful:", bridgeResult);
-        alert(`PYUSD Transfer successful! Explorer: ${bridgeResult.explorerUrl}`);
+      if (result.success) {
+        console.log("Transfer successful:", result);
+        alert(`PYUSD Transfer successful! ${result.explorerUrl ? `Explorer: ${result.explorerUrl}` : `Tx: ${result.transactionHash}`}`);
       } else {
-        throw new Error("Transfer failed");
+        throw new Error(result.error || "Transfer failed");
       }
     } catch (error) {
       console.error("Transfer error:", error);

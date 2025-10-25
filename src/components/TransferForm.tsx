@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import { isAddress } from "viem";
-import { Send, Loader2, AlertCircle } from "lucide-react";
+import { Send, Loader2, AlertCircle, Info } from "lucide-react";
+import { useChainId } from "wagmi";
 import { SUPPORTED_DESTINATION_CHAINS } from "@/constants/chains";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface TransferFormProps {
   onTransfer?: (data: { recipient: string; amount: string; destinationChain: number }) => Promise<void>;
@@ -19,8 +21,11 @@ const TransferForm = ({ onTransfer }: TransferFormProps) => {
   const [destinationChain, setDestinationChain] = useState(SUPPORTED_DESTINATION_CHAINS[0].id);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const currentChainId = useChainId();
 
   const isFormValid = isAddress(recipient) && parseFloat(amount) > 0;
+  const willSwitchChain = currentChainId !== destinationChain;
+  const selectedChain = SUPPORTED_DESTINATION_CHAINS.find(chain => chain.id === destinationChain);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,6 +130,16 @@ const TransferForm = ({ onTransfer }: TransferFormProps) => {
             </SelectContent>
           </Select>
         </div>
+
+        {/* Chain Switch Warning */}
+        {willSwitchChain && selectedChain && (
+          <Alert className="border-[#5EEAD4]/50 bg-[#5EEAD4]/20">
+            <Info className="h-4 w-4 text-[#2E2A47]" />
+            <AlertDescription className="text-[#2E2A47]">
+              <strong>Chain Switch Required:</strong> This will switch your wallet to {selectedChain.name} to complete the transfer.
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* Error Message */}
         {error && (
