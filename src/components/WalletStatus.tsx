@@ -28,20 +28,30 @@ export const WalletStatus = () => {
       // Check for multiple ethereum providers
       if (typeof window !== 'undefined') {
         const windowWithWallets = window as WindowWithWallets;
-        const ethereum = windowWithWallets.ethereum;
         
-        if (ethereum) {
-          // Check for MetaMask
-          if (ethereum.isMetaMask) conflicts.push('MetaMask');
+        try {
+          const ethereum = windowWithWallets.ethereum;
           
-          // Check for other wallets
-          if (ethereum.isCoinbaseWallet) conflicts.push('Coinbase Wallet');
-          if (ethereum.isWalletConnect) conflicts.push('WalletConnect');
-          if (ethereum.isTrust) conflicts.push('Trust Wallet');
-          if (ethereum.isBraveWallet) conflicts.push('Brave Wallet');
+          if (ethereum) {
+            // Check for MetaMask
+            if (ethereum.isMetaMask) conflicts.push('MetaMask');
+            
+            // Check for other wallets
+            if (ethereum.isCoinbaseWallet) conflicts.push('Coinbase Wallet');
+            if (ethereum.isWalletConnect) conflicts.push('WalletConnect');
+            if (ethereum.isTrust) conflicts.push('Trust Wallet');
+            if (ethereum.isBraveWallet) conflicts.push('Brave Wallet');
+          }
           
-          // Check for Petra (mentioned in console)
+          // Check for Petra (Aptos wallet)
           if (windowWithWallets.petra) conflicts.push('Petra Wallet');
+          
+          // Suppress wallet provider override warnings in console
+          if (conflicts.length > 1) {
+            console.warn(`Multiple wallet providers detected: ${conflicts.join(', ')}. Consider disabling unused extensions.`);
+          }
+        } catch (error) {
+          console.warn('Error checking wallet providers:', error);
         }
       }
       
@@ -49,8 +59,8 @@ export const WalletStatus = () => {
       setIsChecking(false);
     };
 
-    // Check after a short delay to ensure all extensions are loaded
-    const timer = setTimeout(checkWalletProviders, 1000);
+    // Check after a longer delay to ensure all extensions are loaded and conflicts resolved
+    const timer = setTimeout(checkWalletProviders, 2000);
     return () => clearTimeout(timer);
   }, []);
 

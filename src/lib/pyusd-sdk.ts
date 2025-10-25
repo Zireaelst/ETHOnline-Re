@@ -211,7 +211,10 @@ export class PYUSDSDK {
     const contractAddress = PYUSD_ADDRESSES[chainId as keyof typeof PYUSD_ADDRESSES];
     
     if (!client || !contractAddress || contractAddress === '0x0000000000000000000000000000000000000000') {
-      console.warn(`Skipping chain ${chainId}: No valid PYUSD contract configured`);
+      // Only log in development mode
+      if (process.env.NODE_ENV === 'development') {
+        console.debug(`Skipping chain ${chainId}: No valid PYUSD contract configured`);
+      }
       return null;
     }
 

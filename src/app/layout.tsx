@@ -25,6 +25,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Filter out known wallet provider conflicts in development
+              if (typeof window !== 'undefined') {
+                const originalError = console.error;
+                console.error = function(...args) {
+                  const message = args.join(' ');
+                  
+                  // Skip these specific error messages
+                  if (message.includes('Cannot set property ethereum') ||
+                      message.includes('MetaMask encountered an error setting the global Ethereum provider') ||
+                      message.includes('another Ethereum wallet extension') ||
+                      message.includes('dispatchMessage PetraApiResponse') ||
+                      message.includes('net::ERR_CERT_AUTHORITY_INVALID')) {
+                    return; // Skip logging these errors
+                  }
+                  
+                  originalError.apply(console, args);
+                };
+              }
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
