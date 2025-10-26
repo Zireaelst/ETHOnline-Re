@@ -194,7 +194,7 @@ export class PYUSDSDK {
         const balance = await this.fetchBalanceFromChain(address, chainId);
         resolve(balance);
       } catch (error) {
-        reject(error);
+        reject(error instanceof Error ? error : new Error(String(error)));
       } finally {
         this.debounceTimers.delete(cacheKey);
       }

@@ -1,9 +1,9 @@
 # 🚀 PYUSD Cross-Chain Nexus Bridge
 
-> **ETH Online 2024 Hackathon Submission**  
+> **ETH Online 2025 Hackathon Submission**  
 > A revolutionary DeFi application that enables seamless PYUSD transfers across multiple blockchain networks using Avail Nexus SDK's cutting-edge cross-chain infrastructure.
 
-![PYUSD Nexus Bridge Banner](https://via.placeholder.com/1200x400/8B5CF6/FFFFFF?text=PYUSD+Cross-Chain+Nexus+Bridge)
+![PYUSD Nexus Bridge Banner](./public/nexuspay-banner.png)
 
 ## 🏆 Qualification Achievements
 
@@ -28,6 +28,10 @@
 ---
 
 ## 🎯 Project Overview
+
+<div align="center">
+  <img src="./public/nexuspay-logo.png" alt="Nexus Pay Logo" width="200" style="margin: 20px 0;">
+</div>
 
 The **PYUSD Cross-Chain Nexus Bridge** is a next-generation DeFi application that solves the critical problem of fragmented liquidity across blockchain networks. By leveraging Avail's Nexus SDK, users can seamlessly transfer PYUSD tokens between different chains with a single transaction, eliminating the complexity of traditional bridge mechanisms.
 
@@ -503,6 +507,8 @@ Our application features a carefully crafted lavender design system:
 ---
 
 <div align="center">
+
+![Nexus Pay Logo](./public/nexuspay-logo.png)
 
 ### 🌟 Built with ❤️ for ETH Online 2024
 

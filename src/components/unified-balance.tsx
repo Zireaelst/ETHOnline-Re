@@ -1,7 +1,7 @@
 import { useNexus } from "@/providers/NexusProvider";
 import { CHAIN_METADATA, type UserAsset } from "@avail-project/nexus-core";
 import { DollarSign, Loader2 } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useCallback } from "react";
 import { Label } from "./ui/label";
 import {
   Accordion,
@@ -17,7 +17,7 @@ const NexusUnifiedBalance = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const { nexusSDK } = useNexus();
-  const fetchUnifiedBalance = async () => {
+  const fetchUnifiedBalance = useCallback(async () => {
     setIsLoading(true);
     try {
       const balance = await nexusSDK?.getUnifiedBalances();
@@ -28,11 +28,11 @@ const NexusUnifiedBalance = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [nexusSDK]);
 
   useEffect(() => {
     fetchUnifiedBalance();
-  }, []);
+  }, [fetchUnifiedBalance]);
 
   const formatBalance = (balance: string, decimals: number) => {
     const num = parseFloat(balance);
