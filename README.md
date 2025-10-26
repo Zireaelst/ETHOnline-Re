@@ -33,7 +33,7 @@
   <img src="./public/nexuspay-logo.png" alt="Nexus Pay Logo" width="200" style="margin: 20px 0;">
 </div>
 
-The **PYUSD Cross-Chain Nexus Bridge** is a next-generation DeFi application that solves the critical problem of fragmented liquidity across blockchain networks. By leveraging Avail's Nexus SDK, users can seamlessly transfer PYUSD tokens between different chains with a single transaction, eliminating the complexity of traditional bridge mechanisms.
+The **PYUSD Cross-Chain Nexus Bridge** is a next-generation DeFi application built for **ETH Online 2025** that solves the critical problem of fragmented liquidity across blockchain networks. By leveraging Avail's cutting-edge Nexus SDK, users can seamlessly transfer PYUSD tokens between different chains with a single transaction, eliminating the complexity of traditional bridge mechanisms.
 
 ### 🎨 Key Features
 
@@ -497,7 +497,7 @@ Our application features a carefully crafted lavender design system:
 ### 🌐 Links
 - **Live Demo**: [https://eth-online-re.vercel.app](https://eth-online-re.vercel.app)
 - **GitHub Repository**: [https://github.com/Zireaelst/ETHOnline-Re](https://github.com/Zireaelst/ETHOnline-Re)
-- **Demo Video**: [Coming Soon]
+- **Demo Video**: [ETH Online 2025 Submission Video - Coming Soon]
 
 ### 📧 Contact
 - **Email**: [your-email@domain.com]
@@ -510,7 +510,7 @@ Our application features a carefully crafted lavender design system:
 
 ![Nexus Pay Logo](./public/nexuspay-logo.png)
 
-### 🌟 Built with ❤️ for ETH Online 2024
+### 🌟 Built with ❤️ for ETH Online 2025
 
 **Revolutionizing Cross-Chain Asset Management with Avail Nexus SDK and PYUSD**
 
@@ -602,11 +602,12 @@ This project is licensed under the MIT License.
 
 ## 🙏 Acknowledgments
 
-- **Avail Project**: For providing the Nexus SDK
-- **PayPal**: For PYUSD token inspiration
-- **Hardhat Team**: For excellent development tools
-- **Web3 Community**: For continuous innovation
+- **ETH Online 2025**: For providing an incredible platform for Web3 innovation and cross-chain development
+- **Avail Project**: For providing the revolutionary Nexus SDK enabling seamless cross-chain interactions
+- **PayPal**: For PYUSD token and advancing stablecoin adoption in DeFi
+- **Hardhat Team**: For excellent development tools and Hardhat 3.0+ framework
+- **Web3 Community**: For continuous innovation and open-source collaboration
 
 ---
 
-**Note**: This is a hackathon project demonstrating cross-chain capabilities. PYUSD support is planned for future releases once integrated into the Avail Nexus SDK.
+**Note**: This is an ETH Online 2025 hackathon project demonstrating cutting-edge cross-chain capabilities. Our implementation showcases direct PYUSD contract interactions and advanced Nexus SDK integration for production-ready cross-chain asset management.
